@@ -150,7 +150,7 @@ class HBNBCommand(cmd.Cmd):
                     val = int(li[1])
                 except Exception:
                     continue
-            dicti[key]=val
+            dicti[key] = val
         new_instance = self.classes[args[0]](**dicti)
         new_instance.save()
         print(new_instance.id)

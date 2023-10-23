@@ -8,6 +8,7 @@ from sqlalchemy import (create_engine)
 import os
 from models.base_model import Base
 
+
 class DBStorage():
     """
     New Storage
@@ -38,7 +39,7 @@ class DBStorage():
         from models.amenity import Amenity
         from models.review import Review
         classes = [BaseModel, Place, State, City, Amenity,
-                    Review, User]
+                   Review, User]
         return_dict = {}
         if cls is None:
             for cls_name in classes:
@@ -82,8 +83,3 @@ class DBStorage():
         Base.metadata.create_all(self.__engine)
         Session = sessionmaker(self.__engine, expire_on_commit=True)
         self.__session = scoped_session(Session)
-
-
-
-
-

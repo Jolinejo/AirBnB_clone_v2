@@ -126,8 +126,7 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] not in self.classes:
             print("** class doesn't exist **")
             return
-        new_instance = self.classes[args[0]]()
-        storage.save()
+        dicti = {}
         for arg in args:
             li = arg.split(" ")
             if len(li) > 1:
@@ -151,8 +150,9 @@ class HBNBCommand(cmd.Cmd):
                     val = int(li[1])
                 except Exception:
                     continue
-            setattr(new_instance, key, val)
-            new_instance.save()
+            dicti[key]=val
+        new_instance = self.classes[args[0]](**dicti)
+        new_instance.save()
         print(new_instance.id)
         storage.save()
 

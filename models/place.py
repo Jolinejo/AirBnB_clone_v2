@@ -1,9 +1,17 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, String, ForeignKey, Float
+from sqlalchemy import Column, Integer, Table, String, ForeignKey, Float
 from sqlalchemy.orm import relationship
 import os
+
+
+place_amenity = Table(
+    "place_amenity",
+    Base.metadata,
+    Column('place_id', String(60), ForeignKey('places.id')),
+    Column('amenity_id', String(60), ForeignKey('amenities.id'))
+)
 
 
 class Place(BaseModel, Base):
@@ -19,8 +27,11 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float)
     longitude = Column(Float)
+    amenity_ids = []
     if os.getenv("HBNB_TYPE_STORAGE") == "db":
         reviews = relationship("Review", backref="place", cascade="all,delete")
+        amenities = relationship \
+                ("Amenity", secondary=place_amenity, viewonly=False)
     else:
         @property
         def reviews(self):
@@ -31,6 +42,23 @@ class Place(BaseModel, Base):
             rev = []
             list_of_all = models.storage.all("Review")
             for review in list_of_all:
-                if list_of_all[review].state_id == self.id:
+                if list_of_all[review].place_id == self.id:
                     rev.append(list_of_all[review])
             return rev
+
+        @property
+        def amenities(self):
+            """amenities list"""
+            amen = []
+            list_of_all = models.storage.all("Amenity")
+            for amenity in list_of_all:
+                if list_of_all[amenity].place_id == self.id:
+                    amen.append(list_of_all[amenity])
+            return amen
+
+        @amenities.setter
+        def amenities(self, val):
+            """append to list"""
+            if val.__class__.__name__ == "Amenity":
+                amenity_ids.append(val)
+

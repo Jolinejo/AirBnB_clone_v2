@@ -4,7 +4,6 @@ if ! [ -x "$(command -v nginx)" ]; then
 	sudo apt update
 	sudo apt install -y nginx
 	sudo ufw allow 'Nginx HTTPS'
-	sudo service nginx start
 fi
 mkdir -p /data/
 mkdir -p /data/web_static/
@@ -44,7 +43,7 @@ server {
 
         server_name _;
 	location / {
-		try_files $uri $uri/ =404;
+		try_files \$uri \$uri/ =404;
 	}
 	location /hbnb_static {
 		alias /data/web_static/current;

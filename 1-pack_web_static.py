@@ -5,6 +5,7 @@ create file archive
 import datetime
 from fabric.api import local
 
+
 def do_pack():
     """
     web_static_<year><month><day><hour><minute><second>.tgz

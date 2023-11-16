@@ -13,7 +13,7 @@ def do_pack():
         now = datetime.datetime.now()
         now = now.strftime("%Y%m%d%H%M%S")
         local("mkdir -p versions")
-        name = "versions/web_static_{}".format(now)
+        name = "versions/web_static_{}.tgz".format(now)
         local("tar -cvzf {} web_static".format(name))
         return name
     except Exception:

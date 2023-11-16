@@ -48,4 +48,4 @@ def deploy():
     file_path = do_pack()
     if file_path is None:
         return False
-    return do_deploy(file_path)
+    return(do_deploy(file_path))

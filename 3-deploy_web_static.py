@@ -37,7 +37,7 @@ def do_deploy(archive_path):
         run('mv /data/web_static/releases/{}/web_static/* {}'.format(spl, dis))
         run('rm -rf /data/web_static/releases/{}/web_static'.format(spl))
         run('rm -rf /data/web_static/current')
-        run('ln -sf {} /data/web_static/current'.format(dis))
+        run('ln -s {} /data/web_static/current'.format(dis))
         return True
     except Exception:
         return False

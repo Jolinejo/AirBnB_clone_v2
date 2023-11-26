@@ -34,8 +34,9 @@ def C_time(text):
     return st
 
 
+@app.route('/python', defaults={'text': "is_cool"}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def py_time(text="is_cool"):
+def py_time(text):
     """
     returning hello hbnb
     """

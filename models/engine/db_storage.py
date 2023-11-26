@@ -68,7 +68,7 @@ class DBStorage():
     def delete(self, obj=None):
         """delete from the current database session obj if not None"""
         if obj is not None:
-            self.session.delete(obj)
+            self.__session.delete(obj)
 
     def reload(self):
         """Loads storage dictionary from file"""
@@ -86,4 +86,5 @@ class DBStorage():
 
     def close(self):
         """call remove() method on the session attribute"""
+        self.reload()
         self.__session.close()

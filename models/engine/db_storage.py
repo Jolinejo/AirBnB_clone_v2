@@ -15,6 +15,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+
 class DBStorage():
     """
     New Storage
@@ -71,7 +72,7 @@ class DBStorage():
         """Loads storage dictionary from file"""
 
         Base.metadata.create_all(self.__engine)
-        Session = sessionmaker(self.__engine, expire_on_commit=True)
+        Session = sessionmaker(self.__engine, expire_on_commit=False)
         self.__session = scoped_session(Session)
 
     def close(self):

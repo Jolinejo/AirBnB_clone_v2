@@ -44,6 +44,7 @@ def py_time(text):
     st = "Python " + x
     return st
 
+
 @app.route('/number/<int:Number>', strict_slashes=False)
 def N_time(Number):
     """

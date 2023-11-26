@@ -16,7 +16,7 @@ def main():
     return "Hello HBNB!"
 
 
-@app.rout('/hbnb', strict_slashes=False)
+@app.route('/hbnb', strict_slashes=False)
 def main():
     """
     returning hello hbnb

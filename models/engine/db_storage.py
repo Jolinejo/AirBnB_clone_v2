@@ -7,7 +7,13 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import (create_engine)
 import os
 from models.base_model import Base
-
+from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 class DBStorage():
     """
@@ -31,14 +37,7 @@ class DBStorage():
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        from models.base_model import BaseModel
-        from models.user import User
-        from models.place import Place
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.review import Review
-        classes = [BaseModel, Place, State, City, Amenity,
+        classes = [Place, State, City, Amenity,
                    Review, User]
         return_dict = {}
         if cls is None:
@@ -47,13 +46,11 @@ class DBStorage():
                     key = "{}.{}".format(cls_name.__name__, obj.id)
                     return_dict[key] = obj
         else:
-            classes_d = {
-                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                    'State': State, 'City': City, 'Amenity': Amenity,
-                    'Review': Review
-                  }
-            for obj in self.__session.query(classes_d[cls]).all():
-                key = "{}.{}".format(cls, obj.id)
+            if type(cls) == str:
+                cls = eval(cls)
+
+            for obj in self.__session.query(cls).all():
+                key = "{}.{}".format(cls.__name__, obj.id)
                 return_dict[key] = obj
         return return_dict
 
@@ -72,13 +69,6 @@ class DBStorage():
 
     def reload(self):
         """Loads storage dictionary from file"""
-        from models.base_model import BaseModel
-        from models.user import User
-        from models.place import Place
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.review import Review
 
         Base.metadata.create_all(self.__engine)
         Session = sessionmaker(self.__engine, expire_on_commit=True)

@@ -19,7 +19,7 @@ def remove_session(exception):
 @app.route('/states_list', strict_slashes=False)
 def list_state():
     """list all states by name"""
-    my_objects = storage.all(State).values()
+    my_objects = list(storage.all(State).values())
     my_objects.sort(key=lambda x: x.name)
     return render_template('7-states_list.html', my_objects=my_objects)
 

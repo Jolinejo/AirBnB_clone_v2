@@ -4,7 +4,6 @@
         <TITLE>HBNB</TITLE>
     </HEAD>
     <BODY>
-        <H1>States</H1>
 	{% if state_id %}
 	   {% if tgt %}
 	   	<H1>State: {{ tgt.name }}</H1>
@@ -18,6 +17,7 @@
 		<H1>Not found!</H1>
 	    {% endif %}
 	{% else %}
+        <H1>States</H1>
         <UL>
             	{% for obj in my_objects %}
             	<LI>{{ obj.id }}: <B>{{ obj.name }}</B></LI>

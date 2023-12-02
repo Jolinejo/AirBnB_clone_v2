@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+        <H1>States</H1>
+	{% if state_id %}
+	   {% if tgt %}
+	    <UL>
+		<LI>{{ tgt.id }}: <B>{{ tgt.name }}</B>
+	    		<UL>
+				{% for cit in tgt.cities|sort(attribute='name') %}
+				<LI>{{ cit.id }}: <B>{{ cit.name }}</B></LI>
+				{% endfor %}
+			</UL>
+	    	</LI>
+	    </UL>
+	    {% else %}
+		<H1>Not found!</H1>
+	    {% endif %}
+	{% else %}
+        <UL>
+            	{% for obj in my_objects %}
+            	<LI>{{ obj.id }}: <B>{{ obj.name }}</B></LI>
+	        {% endfor %}
+	</UL>
+	{% endif %}
+    </BODY>
+</HTML>
